@@ -5,8 +5,6 @@ Multistock::Application.routes.draw do
 
   resources :places
 
-  resources :owners
-
   resources :devices
 
   # The priority is based upon order of creation:
