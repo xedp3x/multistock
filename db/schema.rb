@@ -22,18 +22,7 @@ ActiveRecord::Schema.define(:version => 20121003121525) do
   end
 
   create_table "devices", :force => true do |t|
-    t.integer  "owner_id"
     t.integer  "place_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "owners", :force => true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "phone"
-    t.text     "chat"
-    t.text     "contact"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
