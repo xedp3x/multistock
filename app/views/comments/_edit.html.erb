@@ -15,8 +15,8 @@
 	</tr>
 	<% end %>
 	<tr>
-		<td><%= f.text_field :name, :autofocus=>true %></td>
-  		<td><%= f.text_field :text %></td>
+		<td><%= f.text_field :name, :autofocus=>true, :class => "auto_search_complete", :id => "name" %></td>
+  		<td><%= f.text_field :text, :id => "text" %></td>
     	<td>
     		<%= f.submit :value => "Hinzufügen"%>
     		<%= f.text_field :device_id, :value =>@device.id, :hidden => true%>
@@ -24,3 +24,26 @@
 	</tr>
 </table>
 <% end %>
+
+<lu id="list"></lu>
+
+<script language="JavaScript">
+	$('.auto_search_complete').autocomplete({
+    //minLength: 2,
+    delay: 600,
+    source: function(request, response) {
+        $.ajax({
+            url: "/autocomplete_comments.json",
+            dataType: "json",
+            data: {term: request.term},
+            success: function( data ) {
+            	document.getElementById('list').innerHTML="";
+            	for (var i = 0; i < data.length; i++)
+	                document.getElementById('list').innerHTML= document.getElementById('list').innerHTML + 
+	                "<li onclick='document.getElementById(\"name\").value=this.innerText; document.getElementById(\"list\").innerHTML=\"\"; document.getElementById(\"text\").focus();'>" + data[i].name + "</li>";
+	            
+            }
+        });
+    }           
+});
+</script>
