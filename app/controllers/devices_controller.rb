@@ -14,6 +14,7 @@ class DevicesController < ApplicationController
   # GET /devices/1.json
   def show
     @device = Device.find(params[:id])
+    @place = @device.place
 
     respond_to do |format|
       format.html # show.html.erb

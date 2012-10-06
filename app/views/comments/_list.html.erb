@@ -1,0 +1,11 @@
+<table>
+	<tr>
+		<th colspan="2" style="text-align: left">Eigenschaften</th>
+	</tr>
+	<% @device.comment.each do |c| %>
+	<tr>
+		<td><%= c.name %>:</td>
+		<td><%= c.text %></td>
+	</tr>
+	<% end %>
+</table>
