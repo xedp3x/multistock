@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     @comments = Comment.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { redirect_to :controller => "devices", :action => "edit", :id => @comment.device.id}
       format.json { render json: @comments }
     end
   end
@@ -44,10 +44,10 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
+        format.html { redirect_to :controller => "devices", :action => "edit", :id => @comment.device.id }
         format.json { render json: @comment, status: :created, location: @comment }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to :controller => "devices", :action => "edit", :id => @comment.device.id}
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -60,10 +60,10 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
+        format.html { redirect_to :controller => "devices", :action => "edit", :id => @comment.device.id}
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { redirect_to :controller => "devices", :action => "edit", :id => @comment.device.id}
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -73,10 +73,11 @@ class CommentsController < ApplicationController
   # DELETE /comments/1.json
   def destroy
     @comment = Comment.find(params[:id])
+    d_id = @comment.device.id
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to comments_url }
+      format.html { redirect_to :controller => "devices", :action => "edit", :id => d_id}
       format.json { head :no_content }
     end
   end

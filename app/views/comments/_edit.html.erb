@@ -1,12 +1,26 @@
+<%= form_for(Comment.new) do |f| %>
 <table>
 	<tr>
-		<th colspan="2" style="text-align: left">Eigenschaften</th>
+		<th style="text-align: left">Eigenschaften</th>
+		<th style="text-align: left">Wert</th>
 	</tr>
 	<% @device.comment.each do |c| %>
 	<tr>
 		<td><%= c.name %>:</td>
 		<td><%= c.text %></td>
-		<td><%= link_to "edit", :controller => "comments", :action => "edit", :id => c.id%></td>
+		<td>
+			<%= link_to "Edit", :controller => "comments", :action => "edit", :id => c.id%>
+			<%= link_to "Destroy", {:controller => "comments", :id => c.id, :action => "show"}, {method: :delete, data: { confirm: 'Are you sure?' }} %>
+		</td>
 	</tr>
 	<% end %>
+	<tr>
+		<td><%= f.text_field :name, :autofocus=>true %></td>
+  		<td><%= f.text_field :text %></td>
+    	<td>
+    		<%= f.submit :value => "Hinzufügen"%>
+    		<%= f.text_field :device_id, :value =>@device.id, :hidden => true%>
+    	</td>
+	</tr>
 </table>
+<% end %>
