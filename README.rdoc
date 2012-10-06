@@ -1,6 +1,6 @@
 == MutiStock
 
-MultiStock ist ein Software zur nichtlineare Lagerführung
-Also um Dinge zu finden die nicht Zentral verwaltet werden sondern von jedem der sie geade braucht genommen werden und dann irgendwo gelagert werden.
+MultiStock ist ein Software zur nichtlineare Lagerführung.
+Also um Dinge zu finden die nicht Zentral verwaltet werden sondern von jedem der sie gerade braucht genommen werden und dann irgendwo gelagert werden.
 Das Zeil ist es alles immer dahin zu bekommen wo man es braucht und dabei möglichs wenig aufwand zu haben.
  
