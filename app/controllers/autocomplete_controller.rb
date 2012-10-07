@@ -1,7 +1,7 @@
-class AutocompleteCommentsController < ApplicationController
+class AutocompleteController < ApplicationController
   respond_to :js
 
-  def index
+  def comments
       @comments = Comment.find(:all, :conditions => ['name LIKE ?', "%#{params[:term]}%"], :group => "name", :order => "count(*) DESC", :limit => 10)
       render :json => @comments, :only => "name"
   end

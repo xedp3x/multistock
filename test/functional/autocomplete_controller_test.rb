@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class AutocompleteCommentsControllerTest < ActionController::TestCase
+class AutocompleteControllerTest < ActionController::TestCase
   test "should get Index" do
-    get :Index
+    get :comments
     assert_response :success
   end
 

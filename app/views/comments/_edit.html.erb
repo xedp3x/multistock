@@ -33,7 +33,7 @@
     delay: 600,
     source: function(request, response) {
         $.ajax({
-            url: "/autocomplete_comments.json",
+            url: "/autocomplete/comments.json",
             dataType: "json",
             data: {term: request.term},
             success: function( data ) {

@@ -1,7 +1,6 @@
 Multistock::Application.routes.draw do
-  #get "autocomplete_comments/Index"
 
-  resources :autocomplete_comments, :only => [:index], :as => 'autocomplete'
+  match 'autocomplete/:action' => 'autocomplete'
 
   resources :comments
 
