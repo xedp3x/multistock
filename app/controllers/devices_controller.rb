@@ -2,7 +2,30 @@ class DevicesController < ApplicationController
   # GET /devices
   # GET /devices.json
   def index
-    @devices = Device.all
+    
+    if not params[:such].nil? and not params[:such][0][:name] == ""
+      where = ""
+      i = 0
+      params[:such].each { |e|
+        if not e[:name] == ''      
+          i = i + 1  
+          
+          if not where == ""
+            if params[:such_or] 
+              where = where + ' OR '
+            else
+              where = where + ' AND '
+            end
+          end
+          where = where + "(name = '"+e[:name]+"' and text like '%"+e[:text]+"%')"
+        end  
+      }
+      
+      @such = params[:such]
+      @devices = Device.find_by_sql "select devices.* from devices, (select device_id from comments where #{where} group by device_id) as comments where comments.device_id = devices.id" 
+    else
+      @devices = Device.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb

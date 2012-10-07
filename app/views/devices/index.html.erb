@@ -1,5 +1,36 @@
 <h1>Listing devices</h1>
 
+<form method="get" id="such_form">
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Wert</th>
+	</tr>
+	<% if not @such.nil?%>
+		<% @such.each do |such| %>
+		 <% if not such[:name] == ''%>
+			<tr>
+				<td><input name="such[][name]" value="<%= such[:name] %>" /></td>
+				<td><input name="such[][text]" value="<%= such[:text] %>" /></td>
+				<td><a href="#" onclick="$(this).parent().parent().remove(); document.getElementById('such_form').submit(); return false;">Remove</a></td>
+			</tr>	
+		 <% end %>
+		<% end %>
+	<% end %>
+	<tr>
+		<td><input name="such[][name]" autofocus="autofocus" class="auto_search_complete" /></td>
+		<td><input name="such[][text]" /></td>
+	</tr>
+	
+	<tr>
+		<td><input type="checkbox" name="such_or" onclick="document.getElementById('such_form').submit();" <% if params[:such_or] %>checked="true"<%end%>/>Oder Suche</td>
+		<td><input type="submit" value="Suchen" /></td>
+	</tr>
+</table>
+</form>
+
+<%= puts @params %>
+
 <table>
   <tr>
     <th>Id (short)</th>
