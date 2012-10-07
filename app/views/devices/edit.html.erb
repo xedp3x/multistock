@@ -1,7 +1,61 @@
 <h1>Editing device</h1>
+
+<div style="float: left; width: 200px;">
+<p>
+  <b>Id:</b>
+  <%= @device.id %><br />
+  <% @place= @device.place %>
+  <% if @place.nil? %>
+  	<br />
+  	<b>Lagerort:</b><br />
+  	unbekannt
+  <% else %>
+  	<%= render "places/show" %>
+  <% end %>
+  <br />
+  
+  
+  Neuer Lagerort:<br />
+  <input class="new_place" id="new_place"/> <br />		
+  <lu id="plist"></lu>  
+  <%= form_for(@device) do |f| %>
+  		<%= f.text_field :place_id, :id => 'new_id', :hidden => true, :readonly => true %>
+  		<%= f.submit :id => 'save' ,:value => "Speichern", :hidden => true %>
+  <% end %>		
+  
+  
+
+<script language="JavaScript">
+$('.new_place').autocomplete({
+    //minLength: 2,
+    delay: 200,
+    source: function(request, response) {
+        $.ajax({
+            url: "/autocomplete/places.json",
+            dataType: "json",
+            data: {term: request.term},
+            success: function( data ) {
+            	document.getElementById('plist').innerHTML="";
+            	for (var i = 0; i < data.length; i++)
+	                document.getElementById('plist').innerHTML= document.getElementById('plist').innerHTML + 
+	                "<li onclick='document.getElementById(\"new_id\").value="+data[i].id+";document.getElementById(\"save\").hidden=false;"+
+	                "document.getElementById(\"new_place\").disabled=true;document.getElementById(\"new_place\").value=this.innerText;document.getElementById(\"plist\").hidden=true;'>" + 
+	                data[i].name + "</li>";
+	            if (data.length == 0){
+	            	document.getElementById('plist').innerHTML= '<%= link_to 'New Place', new_place_path %>';
+	            }
+            }
+        });
+    }           
+});	
+</script>
+  
+</p>
 <%= link_to 'Show', @device %> |
 <%= link_to 'Back', devices_path %>
+</div>
 
 
-<%= render "comments/edit"%>
 
+
+<%= render "comments/edit" %>
