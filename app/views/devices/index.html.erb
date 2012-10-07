@@ -2,15 +2,22 @@
 
 <table>
   <tr>
-    <th>Id</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Id (short)</th>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Besitzer</th>
+    <th>Lagerort</th>
+    <th colspan="3"></th>
   </tr>
 
 <% @devices.each do |device| %>
   <tr>
     <td><%= device.id %></td>
+    <td><%= if device.comment.find_by_name(:name).nil?  then "-" else device.comment.find_by_name(:name).text  end %></td>
+    <td><%= if device.comment.find_by_name(:type).nil?  then "-" else device.comment.find_by_name(:type).text  end %></td>
+    <td><%= if device.comment.find_by_name(:owner).nil? then "-" else device.comment.find_by_name(:owner).text end %></td>
+    <td><%= if device.place.nil?  then "-" else device.place.name end %></td>
+    
     <td><%= link_to 'Show', device %></td>
     <td><%= link_to 'Edit', edit_device_path(device) %></td>
     <td><%= link_to 'Destroy', device, method: :delete, data: { confirm: 'Are you sure?' } %></td>
