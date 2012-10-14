@@ -33,7 +33,7 @@
 
 <table>
   <tr>
-    <th>Id (short)</th>
+    <th>Id</th>
     <th>Name</th>
     <th>Type</th>
     <th>Besitzer</th>
@@ -43,7 +43,7 @@
 
 <% @devices.each do |device| %>
   <tr>
-    <td><%= device.id %></td>
+    <td><%= device.ean %></td>
     <td><%= if device.comment.find_by_name(:name).nil?  then "-" else device.comment.find_by_name(:name).text  end %></td>
     <td><%= if device.comment.find_by_name(:type).nil?  then "-" else device.comment.find_by_name(:type).text  end %></td>
     <td><%= if device.comment.find_by_name(:owner).nil? then "-" else device.comment.find_by_name(:owner).text end %></td>
