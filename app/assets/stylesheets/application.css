@@ -11,3 +11,97 @@
  *= require_self
  *= require_tree .
  */
+
+a[href] {
+	color: #436976;
+	background-color: transparent;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	color: #003a6b;
+	background-color: transparent;
+	font: 100% 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica,
+		sans-serif;
+	margin: 0;
+	padding-top: 0.5em;
+}
+
+h1 {
+	font-size: 130%;
+	margin-bottom: 0.5em;
+	border-bottom: 1px solid #FF8800;
+}
+
+h2 {
+	font-size: 120%;
+	margin-bottom: 0.5em;
+	border-bottom: 1px solid #aaa;
+}
+
+h3 {
+	font-size: 110%;
+	margin-bottom: 0.5em;
+	text-decoration: underline;
+}
+
+h4 {
+	font-size: 100%;
+	font-weight: bold;
+}
+
+h5 {
+	font-size: 100%;
+	font-weight: bold;
+}
+
+h6 {
+	font-size: 80%;
+	font-weight: bold;
+}
+
+ul.arrowunderline {
+	list-style-type: none;
+	margin: 0;
+	margin-button: -50px;
+	padding: 0;
+	text-align: center;
+	/* enter "left", "right", or "center" to orient the menu accordingly */
+	font: bold 14px Georgia;
+}
+
+ul.arrowunderline li {
+	display: inline;
+	margin-right: 25px; /* spacing between each menu item */
+}
+
+ul.arrowunderline li a {
+	position: relative;
+	color: black;
+	padding-bottom: 4px;
+	/*spacing between each menu item and arrow underline beneath it */
+	text-decoration: none;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+}
+
+ul.arrowunderline li a:hover {
+	border-bottom: 3px solid #FF8800; /* style of arrow underline */
+	color: black;
+	background-color: #FFFFFF;
+}
+ul.arrowunderline li a:hover:after {
+	/* use CSS generated content to add arrow to the menu */
+	content: '';
+	width: 0;
+	height: 0;
+	position: absolute;
+	left: 50%;
+	margin-left: -5px; /* value should match border-width below */
+	bottom: 0;
+	border-width: 5px; /* value should match margin-left above */
+	border-style: solid;
+	border-color: transparent transparent #FF8800 transparent;
+	/* create up arrow */
+}
