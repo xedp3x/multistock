@@ -5,24 +5,33 @@ class DevicesController < ApplicationController
     
     if not params[:such].nil? and not params[:such][0][:name] == ""
       where = ""
-      i = 0
-      params[:such].each { |e|
-        if not e[:name] == ''      
-          i = i + 1  
-          
-          if not where == ""
-            if params[:such_or] 
-              where = where + ' OR '
-            else
-              where = where + ' AND '
+      if params[:such_or]
+        params[:such].each { |e|
+          if not e[:name] == ''      
+            if not where == ""
+               where = where + ' OR '
             end
-          end
-          where = where + "(name = '"+e[:name]+"' and text like '%"+e[:text]+"%')"
-        end  
-      }
+            where = where + "(name = '"+e[:name]+"' and text like '%"+e[:text]+"%')"
+          end  
+        }
+        @devices = Device.find_by_sql "select devices.* from devices, (select device_id from comments where #{where} group by device_id) as comments where comments.device_id = devices.id"
+      else
+        i = 0
+        from = "devices"
+        params[:such].each { |e|
+          if not e[:name] == ''      
+            if not where == ""
+               where = where + ' AND '
+            end
+            i = i + 1
+            from = from + ", (select device_id as id from comments where name = '"+e[:name]+"' and text like '%"+e[:text]+"%') as c#{i}"
+            where = where + "devices.id = c#{i}.id"
+          end  
+        }
+        @devices = Device.find_by_sql "select devices.* from #{from} where #{where} group by devices.id"
+      end
       
-      @such = params[:such]
-      @devices = Device.find_by_sql "select devices.* from devices, (select device_id from comments where #{where} group by device_id) as comments where comments.device_id = devices.id" 
+      @such = params[:such] 
     else
       @devices = Device.all
     end
