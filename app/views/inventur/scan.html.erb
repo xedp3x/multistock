@@ -1,0 +1,30 @@
+<h1>Inventur - Scanne</h1>
+<div>
+	<form method="post">
+		<input name="such" autofocus="autofocus" />
+		<input type="submit" />
+	</form>
+	<br />
+	<% if not @device.nil? %>
+	<h2 style="background-color: #006600; padding: 1em; font-size: 2em; color: #FFFFFF">Gerät Gescannt</h2><br />
+	<table>
+		<tr>
+			<td>ID</td>
+			<td><%= @device.ean %></td>
+		</tr><tr>
+			<td>Name</td>
+	    	<td><%= if @device.comment.find_by_name(:name).nil?  then "-" else @device.comment.find_by_name(:name).text  end %></td>
+	    </tr><tr>
+	    	<td>Type</td>
+	    	<td><%= if @device.comment.find_by_name(:type).nil?  then "-" else @device.comment.find_by_name(:type).text  end %></td>
+	    </tr><tr>
+	    	<td>Besitzer</td>
+	    	<td><%= if @device.comment.find_by_name(:owner).nil? then "-" else @device.comment.find_by_name(:owner).text end %></td>
+	    </tr>
+    </table>
+    <% else %>
+    	<% if not params[:such].nil? %>
+    		<h2 style="background-color: red; padding: 1em; font-size: 2em; color: #FFFFFF">Gerät nicht gefunden</h2>
+    	<% end %>
+	<% end %>
+</div>

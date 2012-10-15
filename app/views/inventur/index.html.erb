@@ -1,0 +1,32 @@
+<h1>Inventur</h1>
+
+Lagerort:
+<input class="new_place ui-autocomplete-input" autofocus="autofocus" id="new_place" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+<br>
+<table id="plist"></table>
+  
+
+<script language="JavaScript">
+$('.new_place').autocomplete({
+    //minLength: 2,
+    delay: 200,
+    source: function(request, response) {
+        $.ajax({
+            url: "/autocomplete/places.json",
+            dataType: "json",
+            data: {term: request.term},
+            success: function( data ) {
+            	document.getElementById('plist').innerHTML="<tr><th>Ort</th><th>Aktion</th></tr>";
+            	for (var i = 0; i < data.length; i++)
+	                document.getElementById('plist').innerHTML= document.getElementById('plist').innerHTML + 
+	                "<tr><td>" + data[i].name + "</td><td><a href='<%= url_for %>/scan/" + data[i].id + "'>Scannen</a></td></tr>";
+	            if (data.length == 0){
+	            	document.getElementById('plist').innerHTML= '<%= link_to 'New Place', new_place_path %>';
+	            }
+            }
+        });
+    }           
+});	
+</script>
+
+<br />
