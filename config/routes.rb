@@ -1,6 +1,8 @@
 Multistock::Application.routes.draw do
 
   match 'autocomplete/:action' => 'autocomplete'
+  match 'inventur(/:action/:place)' => 'inventur' 
+
 
   resources :comments
 
