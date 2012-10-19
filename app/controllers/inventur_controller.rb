@@ -16,4 +16,8 @@ class InventurController < ApplicationController
     end
   end
   
+  def list
+    @devices= Device.find_all_by_place_id(params[:place])
+  end
+  
 end

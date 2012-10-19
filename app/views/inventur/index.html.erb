@@ -19,7 +19,7 @@ $('.new_place').autocomplete({
             	document.getElementById('plist').innerHTML="<tr><th>Ort</th><th>Aktion</th></tr>";
             	for (var i = 0; i < data.length; i++)
 	                document.getElementById('plist').innerHTML= document.getElementById('plist').innerHTML + 
-	                "<tr><td>" + data[i].name + "</td><td><a href='<%= url_for %>/scan/" + data[i].id + "'>Scannen</a></td></tr>";
+	                "<tr><td>" + data[i].name + "</td><td><a href='<%= url_for %>/scan/" + data[i].id + "'>Scannen</a> <a href='<%= url_for %>/list/" + data[i].id + "'>Anzeigen</a></td></tr>";
 	            if (data.length == 0){
 	            	document.getElementById('plist').innerHTML= '<%= link_to 'New Place', new_place_path %>';
 	            }
