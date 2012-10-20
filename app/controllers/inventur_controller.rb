@@ -17,7 +17,16 @@ class InventurController < ApplicationController
   end
   
   def list
-    @devices= Device.find_all_by_place_id(params[:place])
+    if params[:filter].nil?
+      params[:filter] = 0
+    end
+    if params[:filter] == 0
+      @devices= Device.find_all_by_place_id(params[:place])
+    else
+      @devices= Device.find(:all,
+       :joins => [" LEFT JOIN (select * from comments where name = 'last-seen') as comments on (comments.device_id = devices.id)"], 
+       :conditions => [ "place_id = ? and (UNIX_TIMESTAMP(now())-UNIX_TIMESTAMP(text) > ? or text is null)", params[:place], params[:filter]]) 
+    end 
   end
   
 end

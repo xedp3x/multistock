@@ -1,3 +1,14 @@
+<form method="post">
+	Filter: <select name="filter" onchange="this.form.submit();">
+		<option <%= "selected" if params[:filter] == "0"		%>	value="0"		>Alle Zeigen</option>
+		<option <%= "selected" if params[:filter] == "3600"		%> 	value="3600"	>1 Stunde</option>
+		<option <%= "selected" if params[:filter] == "86400"	%> 	value="86400"	>1 Tag</optgroup>
+		<option <%= "selected" if params[:filter] == "604800"	%> 	value="604800"	>1 Woche</optgroup>		
+		<option <%= "selected" if params[:filter] == "1209600"	%> 	value="1209600"	>2 Woche</optgroup>			
+		<option <%= "selected" if params[:filter] == "1814400"	%> 	value="1814400"	>3 Woche</optgroup>
+	</select>
+</form>
+
 <table>
   <tr>
   	<th>Zuletzt gesehn</th>
