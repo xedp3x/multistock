@@ -1,0 +1,38 @@
+<h1>Übergabeliste: <b style="font-size: 150%;"><%= @place.name %></b></h1>
+<table>
+	<tr><td style="padding-right: 20px">
+	   <%
+    	 barcode = Barby::EAN8.new((@place.id+10000000).to_s[1..8])
+    	 anz= barcode.to_ascii.match(/\A.*?$/)[0].split('').count
+    	 i= 0 
+    	%>
+	   <svg width="<%= anz * 2 %>" height="40"><!-- EAN8 of <%= barcode.data_with_checksum %> --> <%
+    		barcode.to_ascii.match(/\A.*?$/)[0].split('').each do |v| 
+			 if v == "#" 
+			 	%><rect x="<%= i * 2 %>" y="0" width="2" height="100%" /> <%
+			 end 	
+			 i= i + 1
+			end %></svg>
+	</td><td>
+		<%= @place.email %><br />
+		<%= @place.phone %>
+	</td><td style="text-align: center;">
+		<%= Time.now().strftime("%d.%m.%Y")%><br />
+		<%= Time.now().strftime("%H:%M")%>
+	</td></tr>		
+</table>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Type</th>
+	</tr>
+<% @devices.each do |device| %>
+  <tr>
+    <td><b><%= device.ean %></b></td> 
+	<td><%= if device.comment.find_by_name(:name).nil?  then "-" else device.comment.find_by_name(:name).text  end %></td>
+    <td><%= if device.comment.find_by_name(:type).nil?  then "-" else device.comment.find_by_name(:type).text  end %></td>
+  </tr>
+<% end %>
+</table>
+Anzahl: <b style="font-size: 150%"><%= @devices.count %></b>

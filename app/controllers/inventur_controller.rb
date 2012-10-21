@@ -29,4 +29,17 @@ class InventurController < ApplicationController
     end 
   end
   
+  def report
+     require 'barby'
+     require 'barby/barcode/ean_8'
+     require 'barby/outputter/ascii_outputter'
+
+     @no_menu= true;
+
+     @place= Place.find params[:place]
+     @devices= Device.find_all_by_place_id(params[:place])
+
+  end
+    
+  
 end
